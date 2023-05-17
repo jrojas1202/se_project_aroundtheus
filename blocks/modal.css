@@ -76,7 +76,6 @@
 }
 
 .modal__input {
-  max-width: 358px;
   height: 27.26px;
   border: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
@@ -84,7 +83,7 @@
   font-family: "Inter", "Arial", sans-serif;
   font-weight: 400;
   font-size: 14px;
-  line-height: 17px;
+  line-height: 16.94px;
   margin: 29.74px 36px 0px 36px;
 }
 
@@ -155,4 +154,39 @@
     top: -41px;
     right: 0;
   }
+}
+
+.modal-add {
+  background: transparent;
+  z-index: 999;
+  padding: 0 19px;
+  visibility: hidden;
+}
+
+.modal__image {
+  width: 100%;
+  max-width: 75vw;
+  max-height: 75vh;
+}
+
+.modal__container-image {
+  display: flex;
+  align-items: flex-start;
+  background-color: transparent;
+  color: white;
+  font-family: "Inter", Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 15px;
+  letter-spacing: 0em;
+  font-style: normal;
+}
+
+.modal__image_title {
+  font-family: "Inter", Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 15px;
+  letter-spacing: 0em;
+  font-style: normal;
 }

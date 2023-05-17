@@ -27,12 +27,14 @@
 }
 
 .profile__edit-button {
+  position: relative;
   background: transparent url(../images/VectorPencil.svg) center no-repeat;
   height: 24px;
   width: 24px;
   grid-area: button;
   border: 1px solid #ffffff;
   cursor: pointer;
+  top: 3px;
 }
 
 .profile__edit-button:hover {
@@ -41,16 +43,17 @@
 }
 
 .profile__add-button {
+  display: flex;
   background: transparent url(../images/Add\ Button\ Main\ page.svg) center
     no-repeat;
   width: 150px;
   height: 50px;
   margin-left: auto;
   border: 2px solid #ffffff;
-  box-sizing: border-box;
   border-radius: 2px;
   justify-self: end;
   align-self: center;
+  cursor: pointer;
 }
 
 .profile__add-button:hover {
@@ -67,6 +70,7 @@
   grid-area: description;
   margin: 0;
   padding: 7px;
+  padding-left: 0px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -76,7 +80,7 @@
 .profile__image {
   height: 120px;
   width: 120px;
-  border-radius: 60px;
+  border-radius: 50%;
   object-fit: cover;
   background-position: center;
   margin-right: 24px;
