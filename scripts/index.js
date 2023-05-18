@@ -29,9 +29,11 @@ const cardsList = document.querySelector(".cards__list");
 const profileTitle = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
 const profileTitleInput = document.querySelector("#profile-title-input");
+const titleInput = document.querySelector("#profile-title-input");
 const profileDescriptionInput = document.querySelector(
   "#profile-description-input"
 );
+const descriptionInput = document.querySelector("#profile-description-input");
 
 const initialCards = [
   {
