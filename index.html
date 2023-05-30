@@ -87,7 +87,9 @@
             placeholder="Description"
             required
           />
-          <button type="submit" class="modal__button">Save</button>
+          <button id="profileSaveButton" type="submit" class="modal__button">
+            Save
+          </button>
         </form>
       </div>
     </div>
@@ -98,19 +100,29 @@
           <h2 class="modal__title">New Place</h2>
           <input
             class="modal__input modal__input-title"
+            id="new-place"
             type="text"
             name="title"
             placeholder="Title"
+            minlength="1"
+            maxlength="25"
             required
           />
           <input
             class="modal__input modal__input-link"
+            id="new-image-url"
             type="url"
             name="description"
-            placeholder="Description"
+            placeholder="Image link"
             required
           />
-          <button type="submit" class="modal__button">Create</button>
+          <button
+            id="addCardSaveButton"
+            type="submit"
+            class="modal__button modal__button_disabled"
+          >
+            Create
+          </button>
         </form>
       </div>
     </div>

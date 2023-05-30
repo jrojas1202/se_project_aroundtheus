@@ -66,7 +66,6 @@
 }
 
 .modal__title {
-  max-width: 430px;
   font-family: Inter, Arial, sans-serif;
   font-style: normal;
   font-weight: 900;
@@ -96,7 +95,6 @@
   background: black;
   color: white;
   margin: 48px 36px 36px 36px;
-  max-width: 358px;
   height: 50.15px;
   border-radius: 2px;
   padding: 13.66px 124px 18.49px 124px;
@@ -110,7 +108,7 @@
 }
 
 .modal__button:hover {
-  opacity: 0.8px;
+  opacity: 0.8;
 }
 
 @media screen and (max-width: 635px) {
@@ -129,7 +127,6 @@
   }
 
   .modal__button {
-    width: 238px;
     height: 46px;
     padding: 14px 100px 14px 100px;
     margin-right: 22px;

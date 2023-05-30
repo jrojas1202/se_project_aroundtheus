@@ -13,7 +13,9 @@ const profileEditButton = document.querySelector("#profile-edit-button");
 const profileModalCloseButton = profileEditModal.querySelector(".modal__close");
 
 // SAVE
-const saveButton = document.querySelector(".modal__button");
+const profileSaveButton = document.getElementById("profileSaveButton");
+const cardSaveButton = document.getElementById("addCardSaveButton");
+
 const modalImageElement = document.querySelector(".modal__image");
 const modalTitleElement = document.querySelector(".modal__image_title");
 
@@ -147,9 +149,16 @@ function handleAddCardFormSubmit(event) {
 
   const name = cardTitleInput.value;
   const link = cardUrlInput.value;
+  const addCardSubmitButton = document.getElementById("addCardSaveButton");
+
   renderCard({ name, link });
   closeModal(addCardModal);
   addCardFromElement.reset();
+  toggleButtonState(
+    [cardTitleInput, cardUrlInput],
+    addCardSubmitButton,
+    config
+  );
 }
 
 function renderCard(cardData) {
