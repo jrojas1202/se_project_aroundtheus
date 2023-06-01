@@ -1,3 +1,4 @@
+// CARD LINKS
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -151,6 +152,8 @@ const addCardModalCloseButton = newCardModal.querySelector(".modal__close");
 const addCardFromElement = newCardModal.querySelector(".modal__form");
 const cardTitleInput = addCardFromElement.querySelector(".modal__input-title");
 const cardUrlInput = addCardFromElement.querySelector(".modal__input-link");
+
+// Add Card submit Function
 
 function handleAddCardFormSubmit(event) {
   event.preventDefault();
