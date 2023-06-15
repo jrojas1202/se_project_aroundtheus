@@ -96,7 +96,7 @@
     <div class="modal" id="new-card-modal">
       <div class="modal__container">
         <button type="button" class="modal__close"></button>
-        <form class="modal__form">
+        <form class="modal__form" id="new-place-form">
           <h2 class="modal__title">New Place</h2>
           <input
             class="modal__input modal__input-title"
@@ -105,9 +105,10 @@
             name="title"
             placeholder="Title"
             minlength="1"
-            maxlength="25"
+            maxlength="30"
             required
           />
+          <span class="modal__input-type-error" id="new-place-error"></span>
           <input
             class="modal__input modal__input-link"
             id="new-image-url"
@@ -116,10 +117,12 @@
             placeholder="Image link"
             required
           />
+          <span class="modal__input-type-error" id="new-image-url-error"></span>
           <button
             id="addCardSaveButton"
             type="submit"
             class="modal__button modal__button_disabled"
+            disabled
           >
             Create
           </button>
@@ -134,6 +137,8 @@
       </div>
     </div>
 
+    <!-- Index.js -->
+    <script defer src="./scripts/validation.js"></script>
     <script src="./scripts/index.js" defer></script>
   </body>
 </html>

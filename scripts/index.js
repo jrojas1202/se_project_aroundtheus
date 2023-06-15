@@ -160,11 +160,56 @@ function handleAddCardFormSubmit(event) {
 
   const name = cardTitleInput.value;
   const link = cardUrlInput.value;
-  const addCardSubmitButton = document.getElementById("addCardSaveButton");
 
   renderCard({ name, link });
   closeModal(addCardModal);
   addCardFromElement.reset();
+
+  const addCardSubmitButton = document.getElementById("addCardSaveButton");
+  submitButton.classList.toggle("modal__button_disabled");
+  submitButton.setAttribute("disabled", "true");
+  closeModal(addCardModal);
+}
+
+// Prevent Default HANDLE
+
+// Click outside bounds HANDLES
+
+handleClickOutsideProfile();
+function handleClickOutsideProfile(modal) {
+  profileEditModal.addEventListener("mousedown", (e) => {
+    if (
+      e.target.classList.contains("modal") ||
+      e.target.classList.contains("modal__close")
+    ) {
+      closeModal(profileEditModal);
+    }
+  });
+}
+
+handleClickOutsideCard();
+function handleClickOutsideCard(modal) {
+  newCardModal.addEventListener("mousedown", (e) => {
+    if (
+      e.target.classList.contains("modal") ||
+      e.target.classList.contains("modal__close")
+    ) {
+      closeModal(newCardModal);
+    }
+  });
+}
+
+handleClickOutsideImage();
+function handleClickOutsideImage(modal) {
+  imageProfileModal.addEventListener("mousedown", (e) => {
+    console.log(e.target);
+    if (
+      e.target.classList.contains("modal") ||
+      e.target.classList.contains("modal__close")
+    ) {
+      closeModal(imageProfileModal);
+    }
+  });
 }
 
 function renderCard(cardData) {
@@ -198,3 +243,8 @@ profileModalCloseButton.addEventListener("click", () =>
 closeImageModalButton.addEventListener("click", () => {
   closeModal(imageProfileModal);
 });
+
+//FORM VALIDATORS
+
+const editFormElement = document.querySelector("#profile-edit-form");
+const addFormElement = document.querySelector("#new-place-form");
