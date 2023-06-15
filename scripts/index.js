@@ -171,8 +171,6 @@ function handleAddCardFormSubmit(event) {
   closeModal(addCardModal);
 }
 
-// Prevent Default HANDLE
-
 // Click outside bounds HANDLES
 
 handleClickOutsideProfile();
@@ -243,8 +241,3 @@ profileModalCloseButton.addEventListener("click", () =>
 closeImageModalButton.addEventListener("click", () => {
   closeModal(imageProfileModal);
 });
-
-//FORM VALIDATORS
-
-const editFormElement = document.querySelector("#profile-edit-form");
-const addFormElement = document.querySelector("#new-place-form");
