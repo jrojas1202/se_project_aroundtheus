@@ -188,14 +188,22 @@
   font-style: normal;
 }
 
-.modal__input-type-error {
+.modal__error {
   font-family: "Inter", Arial, sans-serif;
   font-size: 12px;
   margin: 5px 36px 0px 36px;
   color: #ff0000;
+}
+
+.modal__input-type-error {
   border-bottom-color: #ff0000;
 }
 
 .modal__button_disabled {
   background-color: #e5e5e5;
+  cursor: default;
+}
+
+.modal__button:hover:not(:disabled) {
+  opacity: 0.8;
 }

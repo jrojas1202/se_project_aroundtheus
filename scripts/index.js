@@ -121,10 +121,35 @@ function handleEscape(event) {
 
 function openModal(modal) {
   modal.classList.add("modal_opened");
+  modal.addEventListener("mousedown", closeModalOnRemoteClick);
+
+  if (modal === profileEditModal) {
+    profileEditModal.addEventListener("mousedown", closeModalOnRemoteClick);
+  } else if (modal === newCardModal) {
+    newCardModal.addEventListener("mousedown", closeModalOnRemoteClick);
+  } else if (modal === imageProfileModal) {
+    imageProfileModal.addEventListener("mousedown", closeModalOnRemoteClick);
+  }
 }
 
 function closeModal(modal) {
   modal.classList.remove("modal_opened");
+  modal.removeEventListener("mousedown", closeModalOnRemoteClick);
+
+  if (modal === profileEditModal) {
+    profileEditModal.removeEventListener("mousedown", closeModalOnRemoteClick);
+  } else if (modal === newCardModal) {
+    newCardModal.removeEventListener("mousedown", closeModalOnRemoteClick);
+  } else if (modal === imageProfileModal) {
+    imageProfileModal.removeEventListener("mousedown", closeModalOnRemoteClick);
+  }
+}
+
+function handleEscape(event) {
+  if (event.key === "Escape") {
+    const openedModal = document.querySelector(".modal_opened");
+    closeModal(openedModal);
+  }
 }
 
 const profileFormElement = profileEditModal.querySelector(".modal__form");
@@ -166,48 +191,9 @@ function handleAddCardFormSubmit(event) {
   addCardFromElement.reset();
 
   const addCardSubmitButton = document.getElementById("addCardSaveButton");
-  submitButton.classList.toggle("modal__button_disabled");
+  toggleButtonState(addCardSubmitButton, "modal__button_disabled");
   submitButton.setAttribute("disabled", "true");
-  closeModal(addCardModal);
-}
-
-// Click outside bounds HANDLES
-
-handleClickOutsideProfile();
-function handleClickOutsideProfile(modal) {
-  profileEditModal.addEventListener("mousedown", (e) => {
-    if (
-      e.target.classList.contains("modal") ||
-      e.target.classList.contains("modal__close")
-    ) {
-      closeModal(profileEditModal);
-    }
-  });
-}
-
-handleClickOutsideCard();
-function handleClickOutsideCard(modal) {
-  newCardModal.addEventListener("mousedown", (e) => {
-    if (
-      e.target.classList.contains("modal") ||
-      e.target.classList.contains("modal__close")
-    ) {
-      closeModal(newCardModal);
-    }
-  });
-}
-
-handleClickOutsideImage();
-function handleClickOutsideImage(modal) {
-  imageProfileModal.addEventListener("mousedown", (e) => {
-    console.log(e.target);
-    if (
-      e.target.classList.contains("modal") ||
-      e.target.classList.contains("modal__close")
-    ) {
-      closeModal(imageProfileModal);
-    }
-  });
+  closeModal(newCardModal);
 }
 
 function renderCard(cardData) {

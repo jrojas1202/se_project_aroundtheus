@@ -77,16 +77,25 @@
             name="title"
             id="profile-title-input"
             placeholder="Name"
+            minlength="2"
+            maxlength="30"
             required
           />
+          <span class="modal__error" id="profile-title-input-error"></span>
           <input
             class="modal__input modal__input-description"
             type="text"
             name="description"
             id="profile-description-input"
             placeholder="Description"
+            minlength="2"
+            maxlength="30"
             required
           />
+          <span
+            class="modal__error"
+            id="profile-description-input-error"
+          ></span>
           <button id="profileSaveButton" type="submit" class="modal__button">
             Save
           </button>
@@ -104,11 +113,11 @@
             type="text"
             name="title"
             placeholder="Title"
-            minlength="1"
+            minlength="2"
             maxlength="30"
             required
           />
-          <span class="modal__input-type-error" id="new-place-error"></span>
+          <span class="modal__error" id="new-place-error"></span>
           <input
             class="modal__input modal__input-link"
             id="new-image-url"
@@ -117,7 +126,7 @@
             placeholder="Image link"
             required
           />
-          <span class="modal__input-type-error" id="new-image-url-error"></span>
+          <span class="modal__error" id="new-image-url-error"></span>
           <button
             id="addCardSaveButton"
             type="submit"
@@ -140,5 +149,6 @@
     <!-- Index.js -->
     <script defer src="./scripts/validation.js"></script>
     <script src="./scripts/index.js" defer></script>
+    <script src="./utils/utils.js" defer></script>
   </body>
 </html>
