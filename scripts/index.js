@@ -122,13 +122,13 @@ function handleEscape(event) {
 function openModal(modal) {
   modal.classList.add("modal_opened");
   modal.addEventListener("mousedown", closeModalOnRemoteClick);
-  modal.addEventListener("keydown", closeModalOnKeyDown);
+  modal.addEventListener("keydown", handleEscape);
 }
 
 function closeModal(modal) {
   modal.classList.remove("modal_opened");
   modal.removeEventListener("mousedown", closeModalOnRemoteClick);
-  modal.removeEventListener("keydown", closeModalOnKeyDown);
+  modal.removeEventListener("keydown", handleEscape);
 }
 
 const profileFormElement = profileEditModal.querySelector(".modal__form");

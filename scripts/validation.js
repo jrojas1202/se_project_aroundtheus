@@ -71,10 +71,8 @@ function toggleButtonState(inputElements, submitButton, validationConfig) {
   const isFormValid = checkFormValidity(inputElements);
   if (isFormValid) {
     enableButton(submitButton, inactiveButtonClass);
-    submitButton.classList.remove(inactiveButtonClass);
   } else {
     disableButton(submitButton, inactiveButtonClass);
-    submitButton.classList.add(inactiveButtonClass);
   }
 }
 
