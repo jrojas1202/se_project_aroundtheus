@@ -122,34 +122,13 @@ function handleEscape(event) {
 function openModal(modal) {
   modal.classList.add("modal_opened");
   modal.addEventListener("mousedown", closeModalOnRemoteClick);
-
-  if (modal === profileEditModal) {
-    profileEditModal.addEventListener("mousedown", closeModalOnRemoteClick);
-  } else if (modal === newCardModal) {
-    newCardModal.addEventListener("mousedown", closeModalOnRemoteClick);
-  } else if (modal === imageProfileModal) {
-    imageProfileModal.addEventListener("mousedown", closeModalOnRemoteClick);
-  }
+  modal.addEventListener("keydown", closeModalOnKeyDown);
 }
 
 function closeModal(modal) {
   modal.classList.remove("modal_opened");
   modal.removeEventListener("mousedown", closeModalOnRemoteClick);
-
-  if (modal === profileEditModal) {
-    profileEditModal.removeEventListener("mousedown", closeModalOnRemoteClick);
-  } else if (modal === newCardModal) {
-    newCardModal.removeEventListener("mousedown", closeModalOnRemoteClick);
-  } else if (modal === imageProfileModal) {
-    imageProfileModal.removeEventListener("mousedown", closeModalOnRemoteClick);
-  }
-}
-
-function handleEscape(event) {
-  if (event.key === "Escape") {
-    const openedModal = document.querySelector(".modal_opened");
-    closeModal(openedModal);
-  }
+  modal.removeEventListener("keydown", closeModalOnKeyDown);
 }
 
 const profileFormElement = profileEditModal.querySelector(".modal__form");
@@ -187,12 +166,15 @@ function handleAddCardFormSubmit(event) {
   const link = cardUrlInput.value;
 
   renderCard({ name, link });
-  closeModal(addCardModal);
+  closeModal(newCardModal);
   addCardFromElement.reset();
 
   const addCardSubmitButton = document.getElementById("addCardSaveButton");
-  toggleButtonState(addCardSubmitButton, "modal__button_disabled");
-  submitButton.setAttribute("disabled", "true");
+  const inputElements = [cardTitleInput, cardUrlInput];
+  const validationConfig = {
+    inactiveButtonClass: "modal__button_disabled",
+  };
+  toggleButtonState(inputElements, addCardSubmitButton, validationConfig);
   closeModal(newCardModal);
 }
 

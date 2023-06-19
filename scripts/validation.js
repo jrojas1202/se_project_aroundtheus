@@ -62,23 +62,20 @@ function enableButton(submitButton, inactiveButtonClass) {
 
 // TOGGLE BUTTON
 
-const checkFormValidity = (inputElements) =>
-  inputElements.every((inputElement) => inputElement.validity.valid);
+function toggleButtonState(inputElements, submitButton, validationConfig) {
+  const { inactiveButtonClass } = validationConfig;
 
-function toggleButtonState(
-  inputElements,
-  submitButton,
-  { inactiveButtonClass }
-) {
+  const checkFormValidity = (inputElements) =>
+    inputElements.every((inputElement) => inputElement.validity.valid);
+
   const isFormValid = checkFormValidity(inputElements);
   if (isFormValid) {
-    submitButton.removeAttribute("disabled");
+    enableButton(submitButton, inactiveButtonClass);
     submitButton.classList.remove(inactiveButtonClass);
   } else {
-    submitButton.setAttribute("disabled", true);
+    disableButton(submitButton, inactiveButtonClass);
     submitButton.classList.add(inactiveButtonClass);
   }
-  enableButton(submitButton, inactiveButtonClass);
 }
 
 // setEventListener FUNCTION

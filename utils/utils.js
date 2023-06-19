@@ -6,3 +6,9 @@ function closeModalOnRemoteClick(evt) {
     closeModal(evt.currentTarget);
   }
 }
+
+function closeModalOnKeyDown(evt) {
+  if (evt.key === "Escape") {
+    closeModal(evt.target);
+  }
+}
