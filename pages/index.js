@@ -1,3 +1,7 @@
+import Card from "../components/Card.js";
+import FormValidator from "../components/FormValidator";
+import { config } from "../utils/Constants.js";
+
 // CARD LINKS
 const initialCards = [
   {
