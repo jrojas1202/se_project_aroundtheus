@@ -1,7 +1,7 @@
 const previewModal = document.querySelector("#image-modal");
 
 export default class Card {
-  constructor({ name, link }, cardSelector) {
+  constructor({ name, link }, cardSelector, handleImageClick) {
     this._name = name;
     this._link = link;
     this._cardSelector = cardSelector;
@@ -46,9 +46,11 @@ export default class Card {
   }
 
   getView() {
+    this._cardElement = this._getTemplate();
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;
     this._cardElement.querySelector(".card__title").textContent = this._name;
+    this._setEventListeners();
 
     return this._cardElement;
   }
