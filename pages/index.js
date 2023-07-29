@@ -156,11 +156,9 @@ function handleAddCardFormSubmit(event) {
 
   const addCardSubmitButton = document.getElementById("addCardSaveButton");
   const inputElements = [cardTitleInput, cardUrlInput];
-  const validationConfig = {
-    inactiveButtonClass: "modal__button_disabled",
-  };
-  toggleButtonState(inputElements, addCardSubmitButton, validationConfig);
-  closeModal(newCardModal);
+
+  const formValidator = new FormValidator(validationConfig);
+  formValidator.enableValidation(inputElements, addCardSubmitButton);
 }
 
 function renderCard(cardData) {
