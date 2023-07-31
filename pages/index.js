@@ -157,8 +157,8 @@ function handleAddCardFormSubmit(event) {
   const addCardSubmitButton = document.getElementById("addCardSaveButton");
   const inputElements = [cardTitleInput, cardUrlInput];
 
-  const formValidator = new FormValidator(validationConfig);
-  formValidator.enableValidation(inputElements, addCardSubmitButton);
+  addCardFormValidator.enableValidation(inputElements, addCardSubmitButton);
+  addCardFormValidator.resetValidation();
 }
 
 function renderCard(cardData) {
