@@ -1,3 +1,7 @@
+export const addCardButton = document.querySelector(
+  ".profile__card-add-button"
+);
+
 export const config = {
   formSelector: ".modal__form",
   inputSelector: ".modal__input",

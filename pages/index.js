@@ -1,6 +1,10 @@
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
-import { validationSettings, addCardForm } from "../scripts/validation.js";
+import {
+  validationSettings,
+  addCardForm,
+  addCardModal,
+} from "../scripts/validation.js";
 import { openModal, closeModal } from "../utils/utils.js";
 
 // CARD LINKS
