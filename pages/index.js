@@ -1,6 +1,6 @@
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
-import { config } from "../utils/constant.js";
+import { validationSettings, addCardForm } from "../scripts/validation.js";
 import { openModal, closeModal } from "../utils/utils.js";
 
 // CARD LINKS
@@ -160,8 +160,6 @@ function handleAddCardFormSubmit(event) {
   addCardFormValidator.resetValidation();
 }
 
-addCardFormValidator.enableValidation();
-
 function renderCard(cardData) {
   const cardElement = getCardElement(cardData);
   cardsList.prepend(cardElement);
@@ -202,5 +200,5 @@ const editProfileFormValidator = new FormValidator(
 );
 editProfileFormValidator.enableValidation();
 
-const addCardFormValidator = new FormValidator(validationSettings, addCardform);
+const addCardFormValidator = new FormValidator(validationSettings, addCardForm);
 addCardFormValidator.enableValidation();

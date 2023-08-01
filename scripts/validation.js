@@ -103,7 +103,7 @@ function enableValidation(options) {
 
 // Config
 
-const config = {
+export const validationSettings = {
   formSelector: ".modal__form",
   inputSelector: ".modal__input",
   submitButtonSelector: ".modal__button",
@@ -112,4 +112,7 @@ const config = {
   errorClass: "modal__error_visible",
 };
 
-enableValidation(config);
+enableValidation(validationSettings);
+
+export const addCardModal = document.querySelector("#newgit -card-modal");
+export const addCardForm = addCardModal.querySelector(".modal__form");
