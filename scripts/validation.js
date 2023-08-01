@@ -114,5 +114,5 @@ export const validationSettings = {
 
 enableValidation(validationSettings);
 
-export const addCardModal = document.querySelector("#newgit -card-modal");
+export const addCardModal = document.querySelector("#new-card-modal");
 export const addCardForm = addCardModal.querySelector(".modal__form");
