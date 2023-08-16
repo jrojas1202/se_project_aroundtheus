@@ -11,10 +11,16 @@ import {
   addCardModal,
 } from "../scripts/validation.js";
 import {
+  userNameInput,
+  userDescriptionInput,
   cardsList,
   initialCards,
   cardData,
   cardSelector,
+  profileEditButton,
+  addCardButton,
+  addCardTitleField,
+  addCardImageLinkField,
   profileEditModal,
   profileEditForm,
 } from "../utils/constant.js";
@@ -57,9 +63,8 @@ function handleImageClick(cardData) {
 }
 
 //PopUpWithForm
-// Edit Profile Modal
 const profileEditPopup = new PopupWithForm(
-  "#edit-profile-modal",
+  "#profile-edit-modal",
   handleEditProfileSubmit
 );
 profileEditPopup.setEventListeners();
@@ -106,7 +111,6 @@ const imageProfileModal = document.querySelector("#image-modal");
 const closeImageModalButton = imageProfileModal.querySelector(".modal__close");
 
 // BUTTONS AND OTHER DOM NODES
-const profileEditButton = document.querySelector("#profile-edit-button");
 const profileModalCloseButton = profileEditModal.querySelector(".modal__close");
 
 // SAVE

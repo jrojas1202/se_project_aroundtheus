@@ -1,3 +1,8 @@
+export const userNameInput = document.querySelector("#profile-title-input");
+export const userDescriptionInput = document.querySelector(
+  "#profile-description-input"
+);
+
 // CARDS
 
 export const cardsList = document.querySelector(".cards__list");
@@ -36,9 +41,15 @@ export const cardData = {
 
 export const cardSelector = "#card-template";
 
-export const addCardButton = document.querySelector(
-  ".profile__card-add-button"
+export const profileEditButton = document.querySelector(
+  ".profile__edit-button"
 );
+
+export const addCardButton = document.querySelector(".profile__add-button");
+
+export const addCardTitleField = document.querySelector(".modal__input-title");
+export const addCardImageLinkField =
+  document.querySelector(".modal__input-link");
 
 export const config = {
   formSelector: ".modal__form",
