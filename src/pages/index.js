@@ -41,7 +41,6 @@ section.renderItems();
 
 function createCard(cardData) {
   const card = new Card(cardData, cardSelector, handleCardClick);
-  console.log(cardData);
   return card.getView();
 }
 
@@ -94,12 +93,7 @@ addCardButton.addEventListener("click", () => {
 });
 
 function handleAddCardSubmit(inputValues) {
-  const { title, description } = inputValues;
-  const newCardData = {
-    name: title,
-    link: description,
-  };
-  const newCard = createCard(newCardData);
+  const newCard = createCard(inputValues);
   section.addItem(newCard);
   addCardPopup.close();
 }
