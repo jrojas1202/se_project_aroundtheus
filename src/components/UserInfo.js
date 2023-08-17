@@ -1,5 +1,3 @@
-const user = { name: "", job: "" };
-
 export default class UserInfo {
   constructor(selectors) {
     this.nameElement = document.querySelector(selectors.userNameSelector);

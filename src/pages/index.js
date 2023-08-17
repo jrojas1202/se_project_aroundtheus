@@ -1,7 +1,7 @@
 import Section from "../components/Section.js";
 import Card from "../components/Card.js";
-import popupWithImage from "../components/PopupwithImage.js";
-import PopupWithForm from "../components/Popupwithform.js";
+import popupWithImage from "../components/popupWithImage.js";
+import PopupWithForm from "../components/popupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import FormValidator from "../components/FormValidator.js";
 import "./index.css";
@@ -95,20 +95,6 @@ function handleAddCardSubmit(inputValues) {
   const newCard = createCard(inputValues);
   section.addItem(newCard);
   addCardPopup.close();
-}
-
-// Open and Close Modal
-
-function openModal(modal) {
-  modal.classList.add("modal_opened");
-  modal.addEventListener("mousedown", closeModalOnRemoteClick);
-  document.addEventListener("keydown", handleEscape);
-}
-
-function closeModal(modal) {
-  modal.classList.remove("modal_opened");
-  modal.removeEventListener("mousedown", closeModalOnRemoteClick);
-  document.removeEventListener("keydown", handleEscape);
 }
 
 // FORM VALIDATION

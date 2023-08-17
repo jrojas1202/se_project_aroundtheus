@@ -1,5 +1,3 @@
-const previewModal = document.querySelector("#image-modal");
-
 export default class Card {
   constructor({ name, link }, cardSelector, handleImageClick) {
     this._name = name;
