@@ -14,7 +14,7 @@ export default class UserInfo {
   }
 
   setUserInfo(user) {
-    this.nameElement.textContent = user.title;
-    this.jobElement.textContent = user.description;
+    this.nameElement.textContent = user.name;
+    this.jobElement.textContent = user.job;
   }
 }

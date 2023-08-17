@@ -60,5 +60,6 @@ export const config = {
   errorClass: "modal__error_visible",
 };
 
+export const addCardModal = document.querySelector("#new-card-modal");
 export const profileEditModal = document.querySelector("#profile-edit-modal");
 export const profileEditForm = profileEditModal.querySelector(".modal__form");
