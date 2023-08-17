@@ -24,7 +24,6 @@ import {
   profileEditModal,
   profileEditForm,
 } from "../utils/constant.js";
-import { openModal, closeModal } from "../utils/utils.js";
 
 //CARD SECTION
 const section = new Section(
@@ -96,6 +95,20 @@ function handleAddCardSubmit(inputValues) {
   const newCard = createCard(inputValues);
   section.addItem(newCard);
   addCardPopup.close();
+}
+
+// Open and Close Modal
+
+function openModal(modal) {
+  modal.classList.add("modal_opened");
+  modal.addEventListener("mousedown", closeModalOnRemoteClick);
+  document.addEventListener("keydown", handleEscape);
+}
+
+function closeModal(modal) {
+  modal.classList.remove("modal_opened");
+  modal.removeEventListener("mousedown", closeModalOnRemoteClick);
+  document.removeEventListener("keydown", handleEscape);
 }
 
 // FORM VALIDATION
