@@ -49,11 +49,8 @@ api.getCardList().then((cardData) => {
 });
 
 function createCard(cardData) {
-  const card = new Card(
-    cardData,
-    cardSelector,
-    handleCardClick,
-    handleDeleteCardClick
+  const card = new Card(cardData, cardSelector, handleCardClick, (cardID) =>
+    handleDeleteCardClick(cardID, card)
   );
   return card.getView();
 }
@@ -62,8 +59,8 @@ function handleCardClick(cardData) {
   previewImagePopup.open(cardData);
 }
 
-function handleDeleteCardClick(cardId, card) {
-  api.removeCard(cardId).then((res) => {
+function handleDeleteCardClick(cardID, card) {
+  api.removeCard(cardID).then((res) => {
     card._handleDeleteCard();
   });
 }
