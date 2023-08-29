@@ -25,7 +25,7 @@ import {
   profileEditForm,
 } from "../utils/constant.js";
 
-const api = newApi({
+const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
   authToken: "92f7ebfa-9e8e-4fb8-b0a3-1cdaa15ccbe0",
 });
