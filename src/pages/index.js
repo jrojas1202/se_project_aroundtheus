@@ -34,6 +34,7 @@ const api = new Api({
 let section;
 
 api.getCardList().then((cardData) => {
+  console.log(cardData);
   section = new Section(
     {
       items: cardData,
@@ -61,7 +62,7 @@ function handleCardClick(cardData) {
   previewImagePopup.open(cardData);
 }
 
-function handleDeleteCardClick(cardId) {
+function handleDeleteCardClick(cardId, card) {
   api.removeCard(cardId).then((res) => {
     card._handleDeleteCard();
   });
@@ -75,8 +76,8 @@ const userInfo = new UserInfo({
 
 api.getUserInfo().then((user) => {
   userInfo.setUserInfo({
-    title: user.name,
-    description: user.about,
+    name: user.name,
+    job: user.about,
   });
 });
 
