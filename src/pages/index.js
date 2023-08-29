@@ -4,6 +4,7 @@ import popupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import FormValidator from "../components/FormValidator.js";
+import Api from "../components/Api.js";
 import "./index.css";
 import {
   validationSettings,
@@ -14,7 +15,6 @@ import {
   userNameInput,
   userDescriptionInput,
   cardsList,
-  initialCards,
   cardData,
   cardSelector,
   profileEditButton,
@@ -25,21 +25,35 @@ import {
   profileEditForm,
 } from "../utils/constant.js";
 
+const api = newApi({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  authToken: "92f7ebfa-9e8e-4fb8-b0a3-1cdaa15ccbe0",
+});
+
 //CARD SECTION
-const section = new Section(
-  {
-    items: initialCards,
-    renderer: (cardData) => {
-      const card = createCard(cardData);
-      section.addItem(card);
+let section;
+
+api.getCardList().then((cardData) => {
+  section = new Section(
+    {
+      items: cardData,
+      renderer: (cardData) => {
+        const card = createCard(cardData);
+        section.addItem(card);
+      },
     },
-  },
-  cardsList
-);
-section.renderItems();
+    cardsList
+  );
+  section.renderItems();
+});
 
 function createCard(cardData) {
-  const card = new Card(cardData, cardSelector, handleCardClick);
+  const card = new Card(
+    cardData,
+    cardSelector,
+    handleCardClick,
+    handleDeleteCardClick
+  );
   return card.getView();
 }
 
@@ -47,10 +61,23 @@ function handleCardClick(cardData) {
   previewImagePopup.open(cardData);
 }
 
+function handleDeleteCardClick(cardId) {
+  api.removeCard(cardId).then((res) => {
+    card._handleDeleteCard();
+  });
+}
+
 //USER INFO
 const userInfo = new UserInfo({
   userNameSelector: ".profile__title",
   userTitleSelector: ".profile__description",
+});
+
+api.getUserInfo().then((user) => {
+  userInfo.setUserInfo({
+    title: user.name,
+    description: user.about,
+  });
 });
 
 //PopUpWithImage
@@ -92,9 +119,11 @@ addCardButton.addEventListener("click", () => {
 });
 
 function handleAddCardSubmit(inputValues) {
-  const newCard = createCard(inputValues);
-  section.addItem(newCard);
-  addCardPopup.close();
+  api.addCard(inputValues).then((res) => {
+    const newCard = createCard(res);
+    section.addItem(newCard);
+    addCardPopup.close();
+  });
 }
 
 // FORM VALIDATION
