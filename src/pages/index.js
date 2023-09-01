@@ -78,6 +78,33 @@ api.getUserInfo().then((user) => {
   });
 });
 
+//Profile pic change
+// Assuming you have an input field where users can select a new profile picture
+const profilePictureInput = document.querySelector("#profile-picture-input");
+
+// Add an event listener to the input field to handle the file selection
+profilePictureInput.addEventListener("change", (event) => {
+  const file = event.target.files[0]; // Assuming you allow users to select only one file
+
+  // Check if a file was selected
+  if (file) {
+    // You may want to upload the selected file to a server or cloud storage first and get the URL
+    // After uploading, get the URL of the uploaded image
+
+    // Assuming you have the URL of the new profile picture in a variable called newProfilePictureUrl
+    api
+      .updateProfilePicture(newProfilePictureUrl)
+      .then((res) => {
+        // Handle a successful update (e.g., update the UI to display the new profile picture)
+        console.log("Profile picture updated successfully");
+      })
+      .catch((error) => {
+        // Handle errors if the update fails
+        console.error("Error updating profile picture:", error);
+      });
+  }
+});
+
 //PopUpWithImage
 const previewImagePopup = new popupWithImage("#image-modal", handleImageClick);
 previewImagePopup.setEventListeners();
