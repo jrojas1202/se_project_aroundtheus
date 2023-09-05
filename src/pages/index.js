@@ -75,18 +75,18 @@ function createCard(data) {
     handleLikeCard: (shouldRemoveLike) => {
       if (shouldRemoveLike) {
         api
-          .removeLike(data)
+          .removeLike(data._id)
           .then((data) => {
-            card.updateLikes(data.likes);
+            card.updateLikes(data.isLiked);
           })
           .catch((err) => {
             console.log(err);
           });
       } else {
         api
-          .addLike(data)
+          .addLike(data._id)
           .then((data) => {
-            card.updateLikes(data.likes);
+            card.updateLikes(data.isLiked);
           })
           .catch((err) => {
             console.log(err);

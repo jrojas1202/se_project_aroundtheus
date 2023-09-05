@@ -52,7 +52,7 @@ export default class Api {
   }
 
   cardLikes(cardId) {
-    return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+    return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: "PUT",
       headers: this._headers,
     }).then(this._checkResponse);
@@ -65,20 +65,34 @@ export default class Api {
     }).then(this._checkResponse);
   }
 
-  addLike({ _id }) {
-    return fetch(`${this._baseUrl}/cards/${_id}/likes`, {
+  addLike(cardId) {
+    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "PUT",
       headers: this._headers,
-    }).then(this._checkResponse);
+      body: JSON.stringify({
+        isLiked: true,
+      }),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        return Promise.reject(`Error: ${res.status}`);
+      }
+    });
   }
 
-  removeLike({ _id }) {
-    return fetch(`${this._baseUrl}/cards/${_id}/likes`, {
+  removeLike(cardId) {
+    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "DELETE",
       headers: this._headers,
-    }).then(this._checkResponse);
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        return Promise.reject(`Error: ${res.status}`);
+      }
+    });
   }
-
   updateProfilePicture(avatar) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
