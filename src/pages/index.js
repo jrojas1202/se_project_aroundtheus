@@ -1,163 +1,213 @@
-import Section from "../components/Section.js";
-import Card from "../components/Card.js";
-import popupWithImage from "../components/PopupWithImage.js";
-import PopupWithForm from "../components/PopupWithForm.js";
-import UserInfo from "../components/UserInfo.js";
 import FormValidator from "../components/FormValidator.js";
-import Api from "../components/Api.js";
+import Card from "../components/Card.js";
 import "./index.css";
+import Popup from "../components/Popup.js";
+import PopupWithForm from "../components/PopupWithForm.js";
+import Section from "../components/Section.js";
+import PopupWithImage from "../components/PopupWithImage.js";
+import UserInfo from "../components/UserInfo.js";
+import Api from "../components/Api.js";
+import PopupWithConfirmation from "../components/PopupConfirmation.js";
 import {
-  validationSettings,
-  addCardForm,
-  addCardModal,
-} from "../scripts/validation.js";
-import {
-  userNameInput,
-  userDescriptionInput,
-  cardsList,
-  cardData,
-  cardSelector,
-  profileEditButton,
-  addCardButton,
-  addCardTitleField,
-  addCardImageLinkField,
-  profileEditModal,
+  formValidationConfig,
+  imageCloseButton,
+  imageModalWindow,
+  addModalForm,
+  addModalButton,
+  addModalBox,
+  profileDescriptionInput,
+  profileTitleInput,
   profileEditForm,
-} from "../utils/constant.js";
+  profileModalCloseButton,
+  profileEditButton,
+  profileModalBox,
+  aviForm,
+} from "../utils/utils.js";
 
+const userInfoEl = new UserInfo({
+  nameSelector: ".profile__title",
+  jobSelector: ".profile__description",
+  avatarSelector: ".profile__image",
+});
+
+/*---------- API ----------*/
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
-  authToken: "92f7ebfa-9e8e-4fb8-b0a3-1cdaa15ccbe0",
+  headers: {
+    authorization: "92f7ebfa-9e8e-4fb8-b0a3-1cdaa15ccbe0",
+    "Content-Type": "application/json",
+  },
 });
+let sectionEl;
+let currentUserId;
+api
+  .getAppInfo()
+  .then(([userData, cardData]) => {
+    currentUserId = userData._id;
+    userInfoEl.setUserInfo({ name: userData.name, job: userData.about });
+    userInfoEl.setAvatarInfo(userData.avatar);
 
-//CARD SECTION
-let section;
+    sectionEl = new Section(
+      {
+        items: cardData,
 
-api.getCardList().then((cardData) => {
-  console.log(cardData);
-  section = new Section(
-    {
-      items: cardData,
-      renderer: (cardData) => {
-        const card = createCard(cardData);
-        section.addItem(card);
+        renderer: (data) => {
+          const card = createCard(data);
+          sectionEl.addItem(card);
+        },
       },
+      ".cards__list"
+    );
+    sectionEl.renderItems();
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+function createCard(data) {
+  const card = new Card({
+    data,
+    cardSelector: "#card-template",
+    currentUserId,
+    handlePreviewImage: () => {
+      imagePopup.open(data);
     },
-    cardsList
-  );
-  section.renderItems();
-});
-
-function createCard(cardData) {
-  const card = new Card(cardData, cardSelector, handleCardClick, (cardID) =>
-    handleDeleteCardClick(cardID, card)
-  );
-  return card.getView();
-}
-
-function handleCardClick(cardData) {
-  previewImagePopup.open(cardData);
-}
-
-function handleDeleteCardClick(cardID, card) {
-  api.removeCard(cardID).then((res) => {
-    card._handleDeleteCard();
-  });
-}
-
-//USER INFO
-const userInfo = new UserInfo({
-  userNameSelector: ".profile__title",
-  userTitleSelector: ".profile__description",
-});
-
-api.getUserInfo().then((user) => {
-  userInfo.setUserInfo({
-    name: user.name,
-    job: user.about,
-  });
-});
-
-//Profile pic change
-// Assuming you have an input field where users can select a new profile picture
-const profilePictureInput = document.querySelector("#profile-picture-input");
-
-// Add an event listener to the input field to handle the file selection
-profilePictureInput.addEventListener("change", (event) => {
-  const file = event.target.files[0]; // Assuming you allow users to select only one file
-
-  // Check if a file was selected
-  if (file) {
-    // You may want to upload the selected file to a server or cloud storage first and get the URL
-    // After uploading, get the URL of the uploaded image
-
-    // Assuming you have the URL of the new profile picture in a variable called newProfilePictureUrl
-    api
-      .updateProfilePicture(newProfilePictureUrl)
-      .then((res) => {
-        // Handle a successful update (e.g., update the UI to display the new profile picture)
-        console.log("Profile picture updated successfully");
-      })
-      .catch((error) => {
-        // Handle errors if the update fails
-        console.error("Error updating profile picture:", error);
+    handleLikeCard: (shouldRemoveLike) => {
+      if (shouldRemoveLike) {
+        api
+          .removeLike(data)
+          .then((data) => {
+            card.updateLikes(data.likes);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      } else {
+        api
+          .addLike(data)
+          .then((data) => {
+            card.updateLikes(data.likes);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    },
+    handleDeleteCard: (cardId) => {
+      deletePopup.open();
+      deletePopup.setSubmitAction(() => {
+        deletePopup.renderLoading(true);
+        api
+          .deleteCard(cardId)
+          .then(() => {
+            card.deleteClick();
+            deletePopup.close();
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+          .finally(() => {
+            deletePopup.renderLoading(false);
+          });
       });
-  }
-});
-
-//PopUpWithImage
-const previewImagePopup = new popupWithImage("#image-modal", handleImageClick);
-previewImagePopup.setEventListeners();
-
-function handleImageClick(cardData) {
-  previewImagePopup.open(cardData);
-}
-
-//PopUpWithForm
-const profileEditPopup = new PopupWithForm(
-  "#profile-edit-modal",
-  handleEditProfileSubmit
-);
-profileEditPopup.setEventListeners();
-profileEditButton.addEventListener("click", () => {
-  handleProfileEditClick();
-});
-
-function handleProfileEditClick() {
-  const user = userInfo.getUserInfo();
-  userNameInput.value = user.name;
-  userDescriptionInput.value = user.job;
-  profileEditPopup.open();
-}
-
-function handleEditProfileSubmit(inputValues) {
-  userInfo.setUserInfo(inputValues);
-  profileEditPopup.close();
-}
-
-// Add Card Modal
-const addCardPopup = new PopupWithForm("#new-card-modal", handleAddCardSubmit);
-addCardPopup.setEventListeners();
-addCardButton.addEventListener("click", () => {
-  addCardFormValidator.resetValidation();
-  addCardPopup.open();
-});
-
-function handleAddCardSubmit(inputValues) {
-  api.addCard(inputValues).then((res) => {
-    const newCard = createCard(res);
-    section.addItem(newCard);
-    addCardPopup.close();
+    },
   });
+  return card.generateCard();
 }
 
-// FORM VALIDATION
+const addFormValidator = new FormValidator(addModalForm, formValidationConfig);
+addFormValidator.enableValidation();
+console.log(addModalForm);
 
-const editProfileFormValidator = new FormValidator(
-  validationSettings,
-  profileEditForm
+const profileFormValidator = new FormValidator(
+  profileEditForm,
+  formValidationConfig
 );
-editProfileFormValidator.enableValidation();
+profileFormValidator.enableValidation();
 
-const addCardFormValidator = new FormValidator(validationSettings, addCardForm);
-addCardFormValidator.enableValidation();
+const aviFormValidator = new FormValidator(aviForm, formValidationConfig);
+aviFormValidator.enableValidation();
+
+const deletePopup = new PopupWithConfirmation("#delete-popup");
+deletePopup.setEventListeners();
+
+const editFormModal = new PopupWithForm("#modal", (inputValues) => {
+  editFormModal.renderLoading(true);
+  api
+    .editProfile(inputValues)
+    .then(() => {
+      userInfoEl.setUserInfo({
+        name: inputValues.name,
+        job: inputValues.description,
+      });
+      editFormModal.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      editFormModal.renderLoading(false);
+    });
+});
+editFormModal.setEventListeners();
+
+const addFormModal = new PopupWithForm("#add-popup", (inputValues) => {
+  addFormModal.renderLoading(true);
+  api
+    .addNewCard(inputValues)
+    .then((data) => {
+      const card = createCard(data);
+      sectionEl.addItem(card);
+      addFormModal.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      addFormModal.renderLoading(false);
+    });
+});
+addFormModal.setEventListeners();
+
+const updateProfileForm = new PopupWithForm("#avi-popup", (inputValues) => {
+  updateProfileForm.renderLoading(true);
+  api
+    .updateProfilePicture(inputValues)
+    .then((value) => {
+      userInfoEl.setAvatarInfo(value.avatar);
+      updateProfileForm.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      updateProfileForm.renderLoading(false);
+    });
+});
+updateProfileForm.setEventListeners();
+
+const profileEdit = document.querySelector(".profile__image");
+profileEdit.addEventListener("click", () => {
+  updateProfileForm.open();
+  aviFormValidator.resetValidation();
+});
+
+const imagePopup = new PopupWithImage("#preview-popup");
+imagePopup.setEventListeners();
+
+function openProfileModal() {
+  const { name, job } = userInfoEl.getUserInfo();
+  profileTitleInput.value = name;
+  profileDescriptionInput.value = job;
+  profileFormValidator.resetValidation();
+  editFormModal.open();
+}
+profileEditButton.addEventListener("click", openProfileModal);
+addModalButton.addEventListener("click", () => {
+  addFormValidator.resetValidation();
+  addFormModal.open();
+});
+
+function closeProfileModal() {
+  editFormModal.close();
+}

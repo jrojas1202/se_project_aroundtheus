@@ -2,151 +2,217 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Around the US" />
-    <meta name="author" content="John Rojas" />
-    <meta name="keywords" content="us, explore parks, nationalparks" />
-    <title>Around the U.S</title>
-    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <meta name="description" content="around the us" />
+    <meta name="keywords" content="html css" />
+    <meta name="author" content="Joel Rivera" />
+    <link rel="shortcuticon" href="./favicon.ico" />
+
+    <title>around the us</title>
   </head>
   <body class="page">
     <div class="page__content">
-      <header class="header page__section">
+      <header class="header">
         <img
+          src="<%=require('./images/logo.svg')%>"
+          alt="logo"
           class="header__logo"
-          src="<%=require('./images/Vectorlogo2.svg')%>"
-          alt="header-logo"
         />
       </header>
+
       <main class="content">
-        <section class="profile page__section">
-          <img
-            src="<%=require('./images/jacques-cousteau.jpg')%>"
-            alt="headshot"
-            class="profile__image"
-            id="profile-picture-input"
-          />
+        <section class="profile">
+          <div class="profile__image-container">
+            <img
+              src="<%=require('./images/avatar.png')%>"
+              alt="avatar"
+              class="profile__image"
+            />
+            <img
+              src="<%=require('./images/editpencil.svg')%>"
+              alt="avatar"
+              class="profile__image-edit"
+            />
+          </div>
           <div class="profile__info">
-            <h1 class="profile__title" id="profile-title">John Rojas</h1>
-            <button
-              class="profile__edit-button"
-              id="profile-edit-button"
-              type="button"
-            ></button>
+            <h1 class="profile__title">Jacques Cousteau</h1>
+            <button type="button" class="profile__edit-button"></button>
             <p class="profile__description">Explorer</p>
           </div>
-          <button
-            class="profile__add-button"
-            id="profile-add-button"
-            type="button"
-          ></button>
+          <button type="button" class="profile__add-button"></button>
         </section>
-        <section class="cards page__section">
+        <section class="cards">
           <ul class="cards__list"></ul>
-          <template id="card-template">
-            <li class="card">
-              <button class="card__delete-button" type="button"></button>
-              <img class="card__image" />
-              <div class="card__description">
-                <h2 class="card__title"></h2>
-                <button class="card__like-button" type="button"></button>
-              </div>
-            </li>
-          </template>
         </section>
       </main>
-      <footer class="footer page__section">
-        <p class="footer__copyright">&copy; 2023 Around the U.S.</p>
-      </footer>
     </div>
 
-    <div class="modal" id="profile-edit-modal">
-      <div class="modal__container">
-        <button
-          type="button"
-          class="modal__close"
-          id="profile-close-modal"
-        ></button>
+    <footer class="footer">
+      <p class="footer__copyright">© 2022 Around The U.S.</p>
+    </footer>
 
-        <form class="modal__form" name="profile-edit-form">
-          <h2 class="modal__title">Edit profile</h2>
-          <input
-            class="modal__input modal__input-profile"
-            type="text"
-            name="name"
-            id="profile-title-input"
-            placeholder="Name"
-            minlength="2"
-            maxlength="30"
-            required
-          />
-          <span class="modal__error" id="profile-title-input-error"></span>
-          <input
-            class="modal__input modal__input-description"
-            type="text"
-            name="job"
-            id="profile-description-input"
-            placeholder="Description"
-            minlength="2"
-            maxlength="30"
-            required
-          />
-          <span
-            class="modal__error"
-            id="profile-description-input-error"
-          ></span>
-          <button id="profileSaveButton" type="submit" class="modal__button">
-            Save
-          </button>
+    <div class="popup" id="modal">
+      <div class="popup__container">
+        <img
+          src="<%=require('./images/closebutton.svg')%>"
+          alt="close button"
+          class="popup__closebutton"
+          id="modal-closebutton"
+        />
+        <p class="popup__title">Edit Profile</p>
+        <form class="popup__form" id="modal-form">
+          <fieldset class="popup__fieldset">
+            <label class="popup__label" for="name">
+              <input
+                class="popup__input"
+                type="text"
+                name="name"
+                id="popup-name"
+                placeholder="name"
+                minlength="2"
+                maxlength="40"
+                required
+              />
+              <span class="popup__error" id="popup-name-error"></span>
+            </label>
+            <label class="popup__label" for="description">
+              <input
+                class="popup__input"
+                type="text"
+                name="description"
+                id="popup-description"
+                placeholder="Description"
+                minlength="2"
+                maxlength="200"
+                required
+              />
+              <span class="popup__error" id="popup-description-error"></span>
+            </label>
+            <button class="popup__button" type="submit">Save</button>
+          </fieldset>
+          <fieldset class="popup__fieldset"></fieldset>
         </form>
       </div>
     </div>
-    <div class="modal" id="new-card-modal">
-      <div class="modal__container">
-        <button type="button" class="modal__close"></button>
-        <form class="modal__form" id="new-place-form">
-          <h2 class="modal__title">New Place</h2>
-          <input
-            class="modal__input modal__input-title"
-            id="new-place-input"
-            type="text"
-            name="name"
-            placeholder="Title"
-            minlength="2"
-            maxlength="30"
-            required
-          />
-          <span class="modal__error" id="new-place-input-error"></span>
-          <input
-            class="modal__input modal__input-link"
-            id="new-image-url-input"
-            type="url"
-            name="link"
-            placeholder="Image link"
-            required
-          />
-          <span class="modal__error" id="new-image-url-input-error"></span>
-          <button
-            id="addCardSaveButton"
-            type="submit"
-            class="modal__button modal__button_disabled"
-            disabled
-          >
-            Create
-          </button>
+
+    <div class="popup" id="add-popup">
+      <div class="popup__container">
+        <img
+          src="<%=require('./images/closebutton.svg')%>"
+          alt="close button"
+          class="popup__closebutton"
+          id="add-popupclosebutton"
+        />
+        <p class="popup__title">New Place</p>
+        <form class="popup__form" id="add-popupform">
+          <fieldset class="popup__fieldset">
+            <label class="popup__label" for="title">
+              <input
+                class="popup__input"
+                type="text"
+                id="popup-title"
+                name="name"
+                placeholder="Title"
+                required
+                minlength="2"
+                maxlength="30"
+              />
+              <span class="popup__error" id="popup-title-error"></span>
+            </label>
+            <label class="popup__label" for="imagelink">
+              <input
+                class="popup__input"
+                type="url"
+                id="popup-imagelink"
+                name="link"
+                placeholder="Image link"
+                required
+              />
+              <span class="popup__error" id="popup-imagelink-error"></span>
+            </label>
+            <button class="popup__button" type="submit">Create</button>
+          </fieldset>
         </form>
       </div>
     </div>
-    <div class="modal" id="image-modal">
-      <div class="modal__container modal__container-image">
-        <button type="button" class="modal__close"></button>
-        <img class="modal__image" src="#" alt="" />
-        <h2 class="modal__image modal__image_title"></h2>
+
+    <div class="popup" id="preview-popup">
+      <div
+        class="popup__container, popup__container_image"
+        id="popup-container"
+      >
+        <img
+          src="<%=require('./images/closebutton.svg')%>"
+          alt="close button"
+          class="popup__closebutton"
+          id="popup-closebutton"
+        />
+        <img class="popup__image" src="#" alt="" id="popup-image" />
+        <p class="popup__text" id="popup-text"></p>
       </div>
     </div>
 
-    <!-- Index.js -->
-    <!-- <script type="module" src="./pages/index.js" defer></script> -->
+    <template id="card-template">
+      <li class="card">
+        <img src="#" alt="" class="card__image" />
+        <button class="card__trash-button" type="button">
+          <img src="<%=require('./images/Trash.svg')%>" />
+        </button>
+        <div class="card__description">
+          <h2 class="card__title"></h2>
+          <div class="card__likes-container">
+            <button type="button" class="card__like-button"></button>
+            <p class="card__likes-counter"></p>
+          </div>
+        </div>
+      </li>
+    </template>
+
+    <div class="popup" id="delete-popup">
+      <div class="popup__container popup__container_delete">
+        <img
+          src="<%=require('./images/closebutton.svg')%>"
+          alt="close button"
+          class="popup__closebutton"
+          id="delete-popupclosebutton"
+        />
+        <p class="popup__title">Are you sure?</p>
+        <form class="popup__form" id="delete-popupform">
+          <fieldset class="popup__fieldset">
+            <button class="popup__button" id="delete__button" type="submit">
+              Yes
+            </button>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+
+    <div class="popup" id="avi-popup">
+      <div class="popup__container popup__container_avi">
+        <img
+          src="<%=require('./images/closebutton.svg')%>"
+          alt="close button"
+          class="popup__closebutton"
+          id="avi-popupclosebutton"
+        />
+        <p class="popup__title">Change profile picture</p>
+        <form class="popup__form" id="avi-popupform">
+          <fieldset class="popup__fieldset">
+            <label class="popup__label" for="imagelink">
+              <input
+                class="popup__input"
+                type="url"
+                id="popup-imagelinks"
+                name="avatar"
+                placeholder="Image link"
+                required
+              />
+              <span class="popup__error" id="popup-imagelinks-error"></span>
+            </label>
+            <button class="popup__button" type="submit">save</button>
+          </fieldset>
+        </form>
+      </div>
+    </div>
   </body>
 </html>
