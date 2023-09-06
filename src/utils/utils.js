@@ -34,7 +34,6 @@ const profileTitleInput = document.querySelector("#popup-name");
 const profileDescriptionInput = document.querySelector("#popup-description");
 const addModalBox = document.querySelector("#add-popup");
 const addModalButton = document.querySelector(".profile__add-button");
-console.log(addModalBox);
 const addModalForm = addModalBox.querySelector("#add-popupform");
 const imageModalWindow = document.querySelector("#preview-popup");
 const imageCloseButton = imageModalWindow.querySelector("#popup-closebutton");

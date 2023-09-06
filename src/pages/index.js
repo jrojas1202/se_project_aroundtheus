@@ -117,7 +117,6 @@ function createCard(data) {
 
 const addFormValidator = new FormValidator(addModalForm, formValidationConfig);
 addFormValidator.enableValidation();
-console.log(addModalForm);
 
 const profileFormValidator = new FormValidator(
   profileEditForm,

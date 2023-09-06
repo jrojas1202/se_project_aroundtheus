@@ -11,7 +11,6 @@ export default class Card {
     this._name = data.name;
     this._link = data.link;
     this._isLiked = !!data.isLiked;
-    console.log(data);
     this._id = data._id;
 
     this._cardSelector = cardSelector;
